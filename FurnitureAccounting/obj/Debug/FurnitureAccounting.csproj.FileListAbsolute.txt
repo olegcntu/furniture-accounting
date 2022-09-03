@@ -1,0 +1,10 @@
+C:\Users\PC\source\repos\FurnitureAccounting\FurnitureAccounting\bin\Debug\FurnitureAccounting.exe.config
+C:\Users\PC\source\repos\FurnitureAccounting\FurnitureAccounting\bin\Debug\FurnitureAccounting.exe
+C:\Users\PC\source\repos\FurnitureAccounting\FurnitureAccounting\bin\Debug\FurnitureAccounting.pdb
+C:\Users\PC\source\repos\FurnitureAccounting\FurnitureAccounting\obj\Debug\FurnitureAccounting.csprojAssemblyReference.cache
+C:\Users\PC\source\repos\FurnitureAccounting\FurnitureAccounting\obj\Debug\FurnitureAccounting.Form1.resources
+C:\Users\PC\source\repos\FurnitureAccounting\FurnitureAccounting\obj\Debug\FurnitureAccounting.Properties.Resources.resources
+C:\Users\PC\source\repos\FurnitureAccounting\FurnitureAccounting\obj\Debug\FurnitureAccounting.csproj.GenerateResource.cache
+C:\Users\PC\source\repos\FurnitureAccounting\FurnitureAccounting\obj\Debug\FurnitureAccounting.csproj.CoreCompileInputs.cache
+C:\Users\PC\source\repos\FurnitureAccounting\FurnitureAccounting\obj\Debug\FurnitureAccounting.exe
+C:\Users\PC\source\repos\FurnitureAccounting\FurnitureAccounting\obj\Debug\FurnitureAccounting.pdb
