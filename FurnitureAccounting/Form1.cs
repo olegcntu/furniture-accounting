@@ -18,16 +18,15 @@ namespace FurnitureAccounting
         private DataGridViewColumn dataGridViewColumn4 = null;
         private DataGridViewColumn dataGridViewColumn5 = null;
 
-        private IList<Furniture> studentList = new List<Furniture>();
+        private LinkedList<Furniture> furnitureList = new LinkedList<Furniture>();
         public Form1()
         {
-            Console.WriteLine("222222222222222");
             InitializeComponent();
             initDataGridView();
 
         }
 
-        //Инициализация таблицы
+        //initialization table
         private void initDataGridView()
         {
             dataGridView1.DataSource = null;
@@ -38,77 +37,79 @@ namespace FurnitureAccounting
             dataGridView1.Columns.Add(getDataGridViewColumn5());
             dataGridView1.AutoResizeColumns();
         }
-        //Динамическое создание первой колонки в таблице
+        //dynamic create column 
         private DataGridViewColumn getDataGridViewColumn1()
         {
             if (dataGridViewColumn1 == null)
             {
                 dataGridViewColumn1 = new DataGridViewTextBoxColumn();
                 dataGridViewColumn1.Name = "";
-                dataGridViewColumn1.HeaderText = "Имя";
+                dataGridViewColumn1.HeaderText = "Name";
                 dataGridViewColumn1.ValueType = typeof(string);
                 dataGridViewColumn1.Width = dataGridView1.Width / 5;
             }
             return dataGridViewColumn1;
         }
-        //Динамическое создание второй колонки в таблице
+        //dynamic create column 
         private DataGridViewColumn getDataGridViewColumn2()
         {
             if (dataGridViewColumn2 == null)
             {
                 dataGridViewColumn2 = new DataGridViewTextBoxColumn();
                 dataGridViewColumn2.Name = "";
-                dataGridViewColumn2.HeaderText = "Фамилия";
+                dataGridViewColumn2.HeaderText = "Manufacturer";
                 dataGridViewColumn2.ValueType = typeof(string);
                 dataGridViewColumn2.Width = dataGridView1.Width / 5;
             }
             return dataGridViewColumn2;
         }
-        //Динамическое создание третей колонки в таблице
+        //dynamic create column 
         private DataGridViewColumn getDataGridViewColumn3()
         {
             if (dataGridViewColumn3 == null)
             {
                 dataGridViewColumn3 = new DataGridViewTextBoxColumn();
                 dataGridViewColumn3.Name = "";
-                dataGridViewColumn3.HeaderText = "Зачетка";
+                dataGridViewColumn3.HeaderText = "Material";
                 dataGridViewColumn3.ValueType = typeof(string);
                 dataGridViewColumn3.Width = dataGridView1.Width / 5;
             }
             return dataGridViewColumn3;
         }
 
+        //dynamic create column 
         private DataGridViewColumn getDataGridViewColumn4()
         {
             if (dataGridViewColumn4 == null)
             {
                 dataGridViewColumn4 = new DataGridViewTextBoxColumn();
                 dataGridViewColumn4.Name = "";
-                dataGridViewColumn4.HeaderText = "Зачетка";
+                dataGridViewColumn4.HeaderText = "Count";
                 dataGridViewColumn4.ValueType = typeof(string);
                 dataGridViewColumn4.Width = dataGridView1.Width / 5;
             }
             return dataGridViewColumn4;
         }
 
+        //dynamic create column 
         private DataGridViewColumn getDataGridViewColumn5()
         {
             if (dataGridViewColumn5 == null)
             {
                 dataGridViewColumn5 = new DataGridViewTextBoxColumn();
                 dataGridViewColumn5.Name = "";
-                dataGridViewColumn5.HeaderText = "Зачетка";
+                dataGridViewColumn5.HeaderText = "Description";
                 dataGridViewColumn5.ValueType = typeof(string);
                 dataGridViewColumn5.Width = dataGridView1.Width / 5;
             }
             return dataGridViewColumn5;
         }
 
-        //Добавление студента в колекцию
+        //add Furniture to collection
         private void addFurniture(string name, string manufacturer, string material, int count, string description)
         {
             Furniture s = new Furniture(name, manufacturer, material, count, description);
-            studentList.Add(s);
+            furnitureList.AddLast(s);
             textBox1.Text = "";
             textBox2.Text = "";
             textBox3.Text = "";
@@ -117,18 +118,28 @@ namespace FurnitureAccounting
             showListInGrid();
         }
 
-        //Удаление студента с колекции
+        //Delete Furniture from collection
         private void deleteFurniture(int elementIndex)
         {
-            studentList.RemoveAt(elementIndex);
+             LinkedListNode<Furniture> currentNode = furnitureList.First;
+            for (int i=0; i <= elementIndex && currentNode != null; i++)
+            {
+                if (i != elementIndex)
+                {
+                    currentNode = currentNode.Next;
+                    continue;
+                }
+
+                furnitureList.Remove(currentNode);
+            }
             showListInGrid();
         }
 
-        //Отображение колекции в таблице
+        //viev collection in table
         private void showListInGrid()
         {
             dataGridView1.Rows.Clear();
-            foreach (Furniture s in studentList)
+            foreach (Furniture s in furnitureList)
             {
                 DataGridViewRow row = new DataGridViewRow();
                 DataGridViewTextBoxCell cell1 = new
@@ -148,9 +159,9 @@ namespace FurnitureAccounting
                 cell3.ValueType = typeof(string);
                 cell3.Value = s.getMaterial();
                 cell4.ValueType = typeof(string);
-                cell4.Value = s.getMaterial();
+                cell4.Value = s.getCount();
                 cell5.ValueType = typeof(string);
-                cell5.Value = s.getMaterial();
+                cell5.Value = s.getDescription();
                 row.Cells.Add(cell1);
                 row.Cells.Add(cell2);
                 row.Cells.Add(cell3);
@@ -160,21 +171,29 @@ namespace FurnitureAccounting
             }
         }
 
-        //Обработчик нажатия на кнопку добавления
-      
-
+        //add button   
          private void Button1_Click_1(object sender, EventArgs e)
         {
-            Console.WriteLine("11111111111111");
-            int count = int.Parse(textBox4.Text);
-            addFurniture(textBox1.Text, textBox2.Text, textBox3.Text, count, textBox5.Text);
+            int count = 0;
+            try
+            {
+                count = int.Parse(textBox4.Text);
+                textBox4.BackColor = Color.White;
+                addFurniture(textBox1.Text, textBox2.Text, textBox3.Text, count, textBox5.Text);
+            }
+            catch
+            {
+                textBox4.BackColor = Color.Red;
+            }
+            
         }
-        //Обработчик нажатия на удалить
+
+        //deleta button
         private void deleteToolStripMenuItem_Click(object sender,
         EventArgs e)
         {
             int selectedRow = dataGridView1.SelectedCells[0].RowIndex;
-            DialogResult dr = MessageBox.Show("Удалить студента?", "",
+            DialogResult dr = MessageBox.Show("Delete furniture?", "",
             MessageBoxButtons.YesNo);
             if (dr == DialogResult.Yes)
             {
@@ -188,10 +207,16 @@ namespace FurnitureAccounting
             }
         }
 
-        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+       
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
